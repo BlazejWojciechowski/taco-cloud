@@ -21,28 +21,27 @@
     </div>
 
     <h3>Adres dostarczenia taco...</h3>
-    <label for="name">Imię i nazwisko: </label>
-    <input type="text" th:field="*{name}"/>
+    <label for="deliveryName">Imię i nazwisko: </label>
+    <input type="text" th:field="*{deliveryName}"/>
     <br/>
 
-    <label for="street">Ulica: </label>
-    <input type="text" th:field="*{street}"/>
+    <label for="deliveryStreet">Ulica: </label>
+    <input type="text" th:field="*{deliveryStreet}"/>
     <br/>
 
-    <label for="city">Miejscowość: </label>
-    <input type="text" th:field="*{city}"/>
+    <label for="deliveryCity">Miejscowość: </label>
+    <input type="text" th:field="*{deliveryCity}"/>
     <br/>
 
-    <label for="state">Województwo: </label>
-    <input type="text" th:field="*{state}"/>
+    <label for="deliveryState">Województwo: </label>
+    <input type="text" th:field="*{deliveryState}"/>
     <br/>
 
-    <label for="zip">Kod pocztowy: </label>
-    <input type="text" th:field="*{zip}"/>
+    <label for="deliveryZip">Kod pocztowy: </label>
+    <input type="text" th:field="*{deliveryZip}"/>
     <br/>
 
     <h3>Sposób płatności...</h3>
-    <!-- tag::validatedField[] -->
     <label for="ccNumber">Numer karty kredytowej: </label>
     <input type="text" th:field="*{ccNumber}"/>
     <br/>

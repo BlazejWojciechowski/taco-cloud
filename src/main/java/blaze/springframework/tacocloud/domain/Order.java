@@ -17,11 +17,11 @@ public class Order implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
     private Date placedAt;
-    private String name;
-    private String street;
-    private String city;
-    private String state;
-    private String zip;
+    private String deliveryName;
+    private String deliveryStreet;
+    private String deliveryCity;
+    private String deliveryState;
+    private String deliveryZip;
     private String ccNumber;
     private String ccExpiration;
     private String ccCVV;
