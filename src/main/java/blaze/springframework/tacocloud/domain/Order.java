@@ -15,7 +15,7 @@ public class Order implements Serializable {
     static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private long id;
+    private Long id;
     private Date placedAt;
     private String deliveryName;
     private String deliveryStreet;
