@@ -2,7 +2,10 @@ package blaze.springframework.tacocloud.controllers;
 
 import blaze.springframework.tacocloud.domain.Ingredient.Type;
 import blaze.springframework.tacocloud.domain.Ingredient;
+import blaze.springframework.tacocloud.domain.Order;
 import blaze.springframework.tacocloud.domain.Taco;
+import blaze.springframework.tacocloud.repositories.IngredientRepository;
+import blaze.springframework.tacocloud.repositories.TacoRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,6 +21,14 @@ import java.util.stream.Collectors;
 @Controller
 @RequestMapping("/design")
 public class DesignTacoController {
+    private final IngredientRepository ingredientRepository;
+
+    private TacoRepository tacoRepository;
+
+    public DesignTacoController(IngredientRepository ingredientRepository, TacoRepository tacoRepository) {
+        this.ingredientRepository = ingredientRepository;
+        this.tacoRepository = tacoRepository;
+    }
 
     @GetMapping
     public String showDesignForm(Model model) {
@@ -33,8 +44,9 @@ public class DesignTacoController {
                 new Ingredient("SLSA", "pikantny sos pomidorowy", Type.SAUCE),
                 new Ingredient("SRCR", "śmietana", Type.SAUCE)
         );
+        ingredientRepository.saveAll(ingredients);
 
-        Type[] types = Ingredient.Type.values();
+        Type[] types = Type.values();
         for (Type type : types) {
             model.addAttribute(type.toString().toLowerCase(),
                     filterByType(ingredients, type));
@@ -44,9 +56,11 @@ public class DesignTacoController {
     }
 
     @PostMapping
-    public String processDesign(Taco design) {
+    public String processDesign(Taco design, Order order) {
 
         log.info("Przetwarzanie projektu Taco: " + design);
+        Taco saved = tacoRepository.save(design);
+        order.addDesign(saved);
         return "redirect:/orders/current";
     }
 
