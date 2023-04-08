@@ -16,7 +16,7 @@ import org.springframework.security.crypto.password.StandardPasswordEncoder;
 @SuppressWarnings("deprecation")
 @Configuration
 @EnableWebSecurity
-public class SecurityConfig extends WebSecurityConfigurer {
+public class SecurityConfig implements WebSecurityConfigurer {
 
     @Autowired
     private UserDetailsService userDetailsService;
@@ -34,22 +34,22 @@ public class SecurityConfig extends WebSecurityConfigurer {
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
-                .antMatchers("/design", "/orders")
-                .access("hasRole('ROLE_USER')")
-                .antMatchers("/", "/**").access("permitAll")
+                    .requestMatchers("/design", "/orders")
+                        .access("hasRole('ROLE_USER')")
+                .requestMatchers("/", "/**").access("permitAll")
                 .and()
-                .formLogin()
-                .loginPage("/login")
+                    .formLogin()
+                        .loginPage("/login")
                 .and()
-                .logout()
-                .logoutSuccessUrl("/")
+                    .logout()
+                        .logoutSuccessUrl("/")
                 .and()
-                .csrf()
-                .ignoringAntMatchers("/h2-console/**")
+                    .csrf()
+                        .ignoringRequestMatchers("/h2-console/**")
                 .and()
-                .headers()
-                .frameOptions()
-                .sameOrigin();
+                    .headers()
+                        .frameOptions()
+                            .sameOrigin();
     }
 
     @Bean
